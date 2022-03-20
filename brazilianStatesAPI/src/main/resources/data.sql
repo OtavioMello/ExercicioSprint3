@@ -1,0 +1,5 @@
+INSERT INTO Brazilian_State(state_Name, country_Zone, state_Population_Amount, state_Capital, state_Area) VALUES ('Rio Grande do Norte', 'NORDESTE', 3409000, 'Natal', 52797)
+INSERT INTO Brazilian_State(state_Name, country_Zone, state_Population_Amount, state_Capital, state_Area) VALUES ('Ceará', 'NORDESTE', 9240580, 'Fortaleza', 148894)
+INSERT INTO Brazilian_State(state_Name, country_Zone, state_Population_Amount, state_Capital, state_Area) VALUES ('São Paulo', 'SUDESTE', 46649132, 'São Paulo', 248219)
+INSERT INTO Brazilian_State(state_Name, country_Zone, state_Population_Amount, state_Capital, state_Area) VALUES ('Minas Gerais', 'SUDESTE', 21411923, 'Belo Horizonte', 586513)
+INSERT INTO Brazilian_State(state_Name, country_Zone, state_Population_Amount, state_Capital, state_Area) VALUES ('Rio Grande do Sul', 'SUL', 11466630, 'Porto Alegre', 281707)

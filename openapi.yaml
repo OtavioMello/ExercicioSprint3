@@ -1,0 +1,184 @@
+openapi: 3.0.1
+info:
+  title: Brazilian States API - PB Compass.UOL
+  description: Brazilian state API, developed for Compass.UOL's internship program.
+  contact:
+    name: Otávio Mello
+    email: otavio.almeida.pb@compasso.com.br
+    url: https://github.com/OtavioMello
+  version: 0.0.1
+servers: 
+- url: http://localhost:8080/api
+  description: Localhost
+paths:
+  /states:
+    post:
+      summary: "Method to create a new entity"
+      description: "Creates a new entity with the attributes received through the request"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/BrazilianStateFORM"
+      responses:
+        201:
+          description: "201 created"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BrazilianStateDTO"
+        400: 
+          description: "400 Bad request"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errorField:
+                    type: string
+                  errorDescription:
+                    type: string
+    get:
+      summary: "Method to get all entities, filters and sort parameters can be applied"
+      description: "By default it gets all registered entities organized by ID. But the zone filter can be applied to return states from a specific zone,  or you can select between the sort by population or area of the state  "
+      parameters: 
+      - name: filterZone
+        in: query
+        description: "Filters the states by Zone | Accepted values: NORTE, NORDESTE, SUL, SUDESTE, CENTRO_OESTE"
+        schema:
+          type: string
+        required: false
+      - name: orderBy
+        in: query
+        description: "Sorts the states by the specified value | Accepted values: population or area"
+        schema:
+          type: string
+        required: false
+      responses:
+        200:
+          description: "200 OK"
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/BrazilianStateDTO"
+        400:
+          description: "400 Bad request"
+  /states/{id}:
+    get:
+      summary: "Method to get a entity by the specified id"
+      description: "Gets a entity by the specified id"
+      parameters:
+      - name: id
+        in: path
+        schema:
+          type: integer
+        required: true
+      responses:
+        200:
+          description: "200 OK"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BrazilianStateDTO"
+        204:
+          description: "204 no Content"
+    put:
+      summary: "Method to update a entity with the specified id"
+      description: "Update a entity with the specified id with the new attributes received through the request"
+      parameters:
+        - name: id
+          in: path
+          schema:
+            type: integer
+          required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/BrazilianStateUpdateFORM"
+      responses:
+        200:
+          description: "200 OK"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BrazilianStateDTO"
+        400: 
+          description: "400 Bad request"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errorField:
+                    type: string
+                  errorDescription:
+                    type: string
+        404:
+          description: "404 Not found"
+        405:
+          description: "405 Method Not Allowed"
+    delete:
+      summary: "Method to delete a entity with the specified id"
+      description: "Delete a entity with the specified id"
+      parameters:
+        - name: id
+          in: path
+          schema:
+            type: integer
+          required: true
+      responses:
+        200:
+          description: "200 OK"
+        404:
+          description: "404 Not found"
+        405:
+          description: "405 Method Not Allowed"
+components:
+  schemas:
+      BrazilianStateDTO:
+        type: object
+        properties:
+          stateID:
+            type: integer
+          stateName:
+            type: string
+          countryZone:
+            type: string
+          statePopulationAmount:
+            type: integer
+          stateCapital:
+            type: string
+          stateArea:
+            type: integer
+            
+      BrazilianStateFORM:
+        type: object
+        properties:
+          stateName:
+            type: string
+          countryZone:
+            type: string
+          statePopulationAmount:
+            type: integer
+          stateCapital:
+            type: string
+          stateArea:
+            type: integer
+            
+      BrazilianStateUpdateFORM:
+        type: object
+        properties:
+          stateName:
+            type: string
+          countryZone:
+            type: string
+          statePopulationAmount:
+            type: integer
+          stateCapital:
+            type: string
+          stateArea:
+            type: integer
+      
